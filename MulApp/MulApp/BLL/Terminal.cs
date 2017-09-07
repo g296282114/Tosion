@@ -31,7 +31,7 @@ namespace MulApp.BLL
         public static void TimerEventFunction(Object sender, ElapsedEventArgs e)
         {
             recTimer.Enabled = false;
-            SendData("");
+            SendData("{}");
         }
 
         public static void StartTimer()

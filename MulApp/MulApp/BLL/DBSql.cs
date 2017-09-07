@@ -114,12 +114,26 @@ namespace MulApp.BLL
             try
             {
                 Type tbtype = tb.GetType();
+                string sql = "select top 1 g_id from " + tb_head + tbtype.Name;
+
+                try
+                {
+                    ExecSql(sql);
+                    return false;
+                }
+                catch
+                {
+
+                }
+                
+                
+
                 PropertyInfo[] tbprops = tbtype.GetProperties(BindingFlags.Public | BindingFlags.Instance);
 
                 string g_key = (tb as Models.DBTable.TableBase).g_key;
 
 
-                string sql = "";
+                sql = "";
 
                 string str = "";
                 foreach (PropertyInfo pi in tbprops)
