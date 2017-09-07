@@ -1,0 +1,21 @@
+﻿/* Reset CSS */
+
+
+.tcpdevice_1
+{
+    position: relative;
+    background-image: url(img/tcpdevice/1.png);
+    width: 260px;
+    height: 260px;
+    margin-left: auto; 
+    margin-right: auto;
+}
+.tcpdevice_2
+{
+    width: 82px;
+    position: absolute; 
+    left: 89px; 
+    top: 89px; 
+    height: 82px;
+    background-image: url(img/tcpdevice/2.png);
+}

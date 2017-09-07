@@ -1,0 +1,425 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{604C551D-321C-4FF2-A210-12F47B46995B}</ProjectGuid>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MulApp</RootNamespace>
+    <AssemblyName>MulApp</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>false</UseIISExpress>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.6\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Net.Http.2.0.20710.0\lib\net40\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Net.Http.2.0.20710.0\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.20710.0\lib\net40\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.20710.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20710.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BLL\Cmd.cs" />
+    <Compile Include="BLL\DBSql.cs" />
+    <Compile Include="BLL\GlfFun.cs" />
+    <Compile Include="BLL\GlfVar.cs" />
+    <Compile Include="BLL\Home.cs" />
+    <Compile Include="BLL\Terminal.cs" />
+    <Compile Include="BLL\TerminalMessage.cs" />
+    <Compile Include="BLL\WeChat.cs" />
+    <Compile Include="Controllers\GlfController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TerminalController.cs" />
+    <Compile Include="Controllers\TerminalMessageController.cs" />
+    <Compile Include="Controllers\WeChatController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBTable.cs" />
+    <Compile Include="Models\Glf.cs" />
+    <Compile Include="Models\Home.cs" />
+    <Compile Include="Models\Terminal.cs" />
+    <Compile Include="Models\WeChat.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="Content\Scripts\bshome\bootstrap_min.js" />
+    <Content Include="Content\Scripts\easyloader.js" />
+    <Content Include="Content\Scripts\jquery_easyui.js" />
+    <Content Include="Content\Scripts\jquery_easyui_mobile.js" />
+    <Content Include="Content\Scripts\jquery_min.js" />
+    <Content Include="Content\Scripts\plugins\jquery.accordion.js" />
+    <Content Include="Content\Scripts\plugins\jquery.calendar.js" />
+    <Content Include="Content\Scripts\plugins\jquery.combo.js" />
+    <Content Include="Content\Scripts\plugins\jquery.combobox.js" />
+    <Content Include="Content\Scripts\plugins\jquery.combogrid.js" />
+    <Content Include="Content\Scripts\plugins\jquery.combotree.js" />
+    <Content Include="Content\Scripts\plugins\jquery.datagrid.js" />
+    <Content Include="Content\Scripts\plugins\jquery.datalist.js" />
+    <Content Include="Content\Scripts\plugins\jquery.datebox.js" />
+    <Content Include="Content\Scripts\plugins\jquery.datetimebox.js" />
+    <Content Include="Content\Scripts\plugins\jquery.datetimespinner.js" />
+    <Content Include="Content\Scripts\plugins\jquery.dialog.js" />
+    <Content Include="Content\Scripts\plugins\jquery.draggable.js" />
+    <Content Include="Content\Scripts\plugins\jquery.droppable.js" />
+    <Content Include="Content\Scripts\plugins\jquery.filebox.js" />
+    <Content Include="Content\Scripts\plugins\jquery.form.js" />
+    <Content Include="Content\Scripts\plugins\jquery.layout.js" />
+    <Content Include="Content\Scripts\plugins\jquery.linkbutton.js" />
+    <Content Include="Content\Scripts\plugins\jquery.menu.js" />
+    <Content Include="Content\Scripts\plugins\jquery.menubutton.js" />
+    <Content Include="Content\Scripts\plugins\jquery.messager.js" />
+    <Content Include="Content\Scripts\plugins\jquery.mobile.js" />
+    <Content Include="Content\Scripts\plugins\jquery.numberbox.js" />
+    <Content Include="Content\Scripts\plugins\jquery.numberspinner.js" />
+    <Content Include="Content\Scripts\plugins\jquery.pagination.js" />
+    <Content Include="Content\Scripts\plugins\jquery.panel.js" />
+    <Content Include="Content\Scripts\plugins\jquery.parser.js" />
+    <Content Include="Content\Scripts\plugins\jquery.progressbar.js" />
+    <Content Include="Content\Scripts\plugins\jquery.propertygrid.js" />
+    <Content Include="Content\Scripts\plugins\jquery.resizable.js" />
+    <Content Include="Content\Scripts\plugins\jquery.searchbox.js" />
+    <Content Include="Content\Scripts\plugins\jquery.slider.js" />
+    <Content Include="Content\Scripts\plugins\jquery.spinner.js" />
+    <Content Include="Content\Scripts\plugins\jquery.splitbutton.js" />
+    <Content Include="Content\Scripts\plugins\jquery.switchbutton.js" />
+    <Content Include="Content\Scripts\plugins\jquery.tabs.js" />
+    <Content Include="Content\Scripts\plugins\jquery.textbox.js" />
+    <Content Include="Content\Scripts\plugins\jquery.timespinner.js" />
+    <Content Include="Content\Scripts\plugins\jquery.tooltip.js" />
+    <Content Include="Content\Scripts\plugins\jquery.tree.js" />
+    <Content Include="Content\Scripts\plugins\jquery.treegrid.js" />
+    <Content Include="Content\Scripts\plugins\jquery.validatebox.js" />
+    <Content Include="Content\Scripts\plugins\jquery.window.js" />
+    <Content Include="Content\Style\bshome\bootstrap-responsive.css" />
+    <Content Include="Content\Style\bshome\bootstrap.css" />
+    <Content Include="Content\Style\bshome\unicorn_grey.css" />
+    <Content Include="Content\Style\bshome\unicorn_main.css" />
+    <Content Include="Content\Style\color.css" />
+    <Content Include="Content\Style\css.css" />
+    <Content Include="Content\Style\icon.css" />
+    <Content Include="Content\Style\icons\back.png" />
+    <Content Include="Content\Style\icons\blank.gif" />
+    <Content Include="Content\Style\icons\cancel.png" />
+    <Content Include="Content\Style\icons\clear.png" />
+    <Content Include="Content\Style\icons\cut.png" />
+    <Content Include="Content\Style\icons\edit_add.png" />
+    <Content Include="Content\Style\icons\edit_remove.png" />
+    <Content Include="Content\Style\icons\filesave.png" />
+    <Content Include="Content\Style\icons\filter.png" />
+    <Content Include="Content\Style\icons\help.png" />
+    <Content Include="Content\Style\icons\large_chart.png" />
+    <Content Include="Content\Style\icons\large_clipart.png" />
+    <Content Include="Content\Style\icons\large_picture.png" />
+    <Content Include="Content\Style\icons\large_shapes.png" />
+    <Content Include="Content\Style\icons\large_smartart.png" />
+    <Content Include="Content\Style\icons\lock.png" />
+    <Content Include="Content\Style\icons\man.png" />
+    <Content Include="Content\Style\icons\mini_add.png" />
+    <Content Include="Content\Style\icons\mini_edit.png" />
+    <Content Include="Content\Style\icons\mini_refresh.png" />
+    <Content Include="Content\Style\icons\more.png" />
+    <Content Include="Content\Style\icons\no.png" />
+    <Content Include="Content\Style\icons\ok.png" />
+    <Content Include="Content\Style\icons\pencil.png" />
+    <Content Include="Content\Style\icons\print.png" />
+    <Content Include="Content\Style\icons\redo.png" />
+    <Content Include="Content\Style\icons\reload.png" />
+    <Content Include="Content\Style\icons\search.png" />
+    <Content Include="Content\Style\icons\soft_con.png" />
+    <Content Include="Content\Style\icons\soft_discon.png" />
+    <Content Include="Content\Style\icons\sum.png" />
+    <Content Include="Content\Style\icons\tip.png" />
+    <Content Include="Content\Style\icons\undo.png" />
+    <Content Include="Content\Style\img\alpha.png" />
+    <Content Include="Content\Style\img\breadcrumb.png" />
+    <Content Include="Content\Style\img\Clock\0.png" />
+    <Content Include="Content\Style\img\Clock\00.png" />
+    <Content Include="Content\Style\img\Clock\1.png" />
+    <Content Include="Content\Style\img\Clock\2.png" />
+    <Content Include="Content\Style\img\Clock\3.png" />
+    <Content Include="Content\Style\img\Clock\4.png" />
+    <Content Include="Content\Style\img\Clock\5.png" />
+    <Content Include="Content\Style\img\Clock\6.png" />
+    <Content Include="Content\Style\img\Clock\7.png" />
+    <Content Include="Content\Style\img\Clock\8.png" />
+    <Content Include="Content\Style\img\Clock\9.png" />
+    <Content Include="Content\Style\img\devbtn.png" />
+    <Content Include="Content\Style\img\eq_btn.png" />
+    <Content Include="Content\Style\img\glyphicons-halflings-white.png" />
+    <Content Include="Content\Style\img\glyphicons-halflings.png" />
+    <Content Include="Content\Style\img\gritter-light.png" />
+    <Content Include="Content\Style\img\gritter.png" />
+    <Content Include="Content\Style\img\hue.png" />
+    <Content Include="Content\Style\img\icons\16\book.png" />
+    <Content Include="Content\Style\img\icons\16\cabinet.png" />
+    <Content Include="Content\Style\img\icons\16\calendar.png" />
+    <Content Include="Content\Style\img\icons\16\client.png" />
+    <Content Include="Content\Style\img\icons\16\database.png" />
+    <Content Include="Content\Style\img\icons\16\download.png" />
+    <Content Include="Content\Style\img\icons\16\graph.png" />
+    <Content Include="Content\Style\img\icons\16\home.png" />
+    <Content Include="Content\Style\img\icons\16\lock.png" />
+    <Content Include="Content\Style\img\icons\16\mail.png" />
+    <Content Include="Content\Style\img\icons\16\pdf.png" />
+    <Content Include="Content\Style\img\icons\16\people.png" />
+    <Content Include="Content\Style\img\icons\16\piechart.png" />
+    <Content Include="Content\Style\img\icons\16\search.png" />
+    <Content Include="Content\Style\img\icons\16\shopping-bag.png" />
+    <Content Include="Content\Style\img\icons\16\survey.png" />
+    <Content Include="Content\Style\img\icons\16\tag.png" />
+    <Content Include="Content\Style\img\icons\16\user.png" />
+    <Content Include="Content\Style\img\icons\16\wallet.png" />
+    <Content Include="Content\Style\img\icons\16\web.png" />
+    <Content Include="Content\Style\img\icons\32\book.png" />
+    <Content Include="Content\Style\img\icons\32\cabinet.png" />
+    <Content Include="Content\Style\img\icons\32\calendar.png" />
+    <Content Include="Content\Style\img\icons\32\client.png" />
+    <Content Include="Content\Style\img\icons\32\database.png" />
+    <Content Include="Content\Style\img\icons\32\download.png" />
+    <Content Include="Content\Style\img\icons\32\graph.png" />
+    <Content Include="Content\Style\img\icons\32\home.png" />
+    <Content Include="Content\Style\img\icons\32\lock.png" />
+    <Content Include="Content\Style\img\icons\32\mail.png" />
+    <Content Include="Content\Style\img\icons\32\pdf.png" />
+    <Content Include="Content\Style\img\icons\32\people.png" />
+    <Content Include="Content\Style\img\icons\32\piechart.png" />
+    <Content Include="Content\Style\img\icons\32\search.png" />
+    <Content Include="Content\Style\img\icons\32\shopping-bag.png" />
+    <Content Include="Content\Style\img\icons\32\survey.png" />
+    <Content Include="Content\Style\img\icons\32\tag.png" />
+    <Content Include="Content\Style\img\icons\32\user.png" />
+    <Content Include="Content\Style\img\icons\32\wallet.png" />
+    <Content Include="Content\Style\img\icons\32\web.png" />
+    <Content Include="Content\Style\img\larrow.png" />
+    <Content Include="Content\Style\img\line.png" />
+    <Content Include="Content\Style\img\logo.png" />
+    <Content Include="Content\Style\img\menu-active.png" />
+    <Content Include="Content\Style\img\rarrow.png" />
+    <Content Include="Content\Style\img\saturation.png" />
+    <Content Include="Content\Style\img\select2.png" />
+    <Content Include="Content\Style\img\select2x2.png" />
+    <Content Include="Content\Style\img\spinner.gif" />
+    <Content Include="Content\Style\img\sprite.png" />
+    <Content Include="Content\Style\Login.css" />
+    <Content Include="Content\Style\metro\accordion.css" />
+    <Content Include="Content\Style\metro\calendar.css" />
+    <Content Include="Content\Style\metro\combo.css" />
+    <Content Include="Content\Style\metro\combobox.css" />
+    <Content Include="Content\Style\metro\datagrid.css" />
+    <Content Include="Content\Style\metro\datalist.css" />
+    <Content Include="Content\Style\metro\datebox.css" />
+    <Content Include="Content\Style\metro\dialog.css" />
+    <Content Include="Content\Style\metro\easyui.css" />
+    <Content Include="Content\Style\metro\filebox.css" />
+    <Content Include="Content\Style\metro\images\accordion_arrows.png" />
+    <Content Include="Content\Style\metro\images\blank.gif" />
+    <Content Include="Content\Style\metro\images\calendar_arrows.png" />
+    <Content Include="Content\Style\metro\images\combo_arrow.png" />
+    <Content Include="Content\Style\metro\images\datagrid_icons.png" />
+    <Content Include="Content\Style\metro\images\datebox_arrow.png" />
+    <Content Include="Content\Style\metro\images\layout_arrows.png" />
+    <Content Include="Content\Style\metro\images\linkbutton_bg.png" />
+    <Content Include="Content\Style\metro\images\loading.gif" />
+    <Content Include="Content\Style\metro\images\menu_arrows.png" />
+    <Content Include="Content\Style\metro\images\messager_icons.png" />
+    <Content Include="Content\Style\metro\images\pagination_icons.png" />
+    <Content Include="Content\Style\metro\images\panel_tools.png" />
+    <Content Include="Content\Style\metro\images\searchbox_button.png" />
+    <Content Include="Content\Style\metro\images\slider_handle.png" />
+    <Content Include="Content\Style\metro\images\spinner_arrows.png" />
+    <Content Include="Content\Style\metro\images\tabs_icons.png" />
+    <Content Include="Content\Style\metro\images\tree_icons.png" />
+    <Content Include="Content\Style\metro\images\validatebox_warning.png" />
+    <Content Include="Content\Style\metro\layout.css" />
+    <Content Include="Content\Style\metro\linkbutton.css" />
+    <Content Include="Content\Style\metro\menu.css" />
+    <Content Include="Content\Style\metro\menubutton.css" />
+    <Content Include="Content\Style\metro\messager.css" />
+    <Content Include="Content\Style\metro\numberbox.css" />
+    <Content Include="Content\Style\metro\pagination.css" />
+    <Content Include="Content\Style\metro\panel.css" />
+    <Content Include="Content\Style\metro\progressbar.css" />
+    <Content Include="Content\Style\metro\propertygrid.css" />
+    <Content Include="Content\Style\metro\searchbox.css" />
+    <Content Include="Content\Style\metro\slider.css" />
+    <Content Include="Content\Style\metro\spinner.css" />
+    <Content Include="Content\Style\metro\splitbutton.css" />
+    <Content Include="Content\Style\metro\switchbutton.css" />
+    <Content Include="Content\Style\metro\tabs.css" />
+    <Content Include="Content\Style\metro\textbox.css" />
+    <Content Include="Content\Style\metro\tooltip.css" />
+    <Content Include="Content\Style\metro\tree.css" />
+    <Content Include="Content\Style\metro\validatebox.css" />
+    <Content Include="Content\Style\metro\window.css" />
+    <Content Include="Content\Style\mobile.css" />
+    <Content Include="Global.asax" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Content\Style\img\Devices\" />
+    <Folder Include="Content\Style\img\TcpDevice\" />
+    <Folder Include="Content\Style\img\Wechat\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Terminal\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Main.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\_ViewStart.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Json\Menu.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Terminal\T.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Terminal\FacePass.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Terminal\TmlTest.cshtml" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>2849</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

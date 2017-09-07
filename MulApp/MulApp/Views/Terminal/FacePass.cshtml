@@ -1,0 +1,70 @@
+﻿@{
+    ViewBag.Title = "FacePass";
+}
+<script type="text/javascript">
+    
+    var gvar_deviceip = "@ViewData["deviceip"]";
+    var gvar_autovideoimg = true;
+
+    function gfun_cmd_get_videoimg() {
+        var socket = {};
+        socket["cmd"] = "get_videoimg";
+        socket["tip"] = gvar_deviceip;
+        socket["fmodule"] = "/terminal/index";
+        $.post("/terminal/SendData", JSON.stringify(socket), null);
+
+    }
+
+    function gfun_terminal_message(data) {
+        switch (data["cmd"]) {
+            case "return_videoimg":
+                gfun_revideoimg();
+                if(gvar_autovideoimg)
+                    gfun_cmd_get_videoimg();
+                break;
+
+        }
+
+    }
+
+    function gfun_revideoimg(){  
+            $("#videoimg").attr("src","/terminal/return_videoimg?rnd=" + Math.random());
+        }  
+
+    function gfun_height(bwidth, bheight) {
+        $('#content').height(bheight);
+        $('#gl_layout').layout().layout('resize');
+        if ($("#gl_layout").layout('options').width < 400) {
+            if (!$("#gl_layout").layout("panel", "east").panel('options').collapsed) {
+                $("#gl_layout").layout("collapse", "east");
+            }
+        }
+        else {
+            if ($("#gl_layout").layout("panel", "east").panel('options').collapsed) {
+                $("#gl_layout").layout("expand", "east");
+            }
+        }
+    }
+</script>
+
+
+<div id="content" style="height: 408px">
+    <div id="gl_layout" class="easyui-layout" data-options="fit:true">
+        <div id="g_devbtn" data-options="region:'east',split:true,title:'Settings',collapsed:true"
+            style="width: 200px; padding-top: 10px">
+            <a href="#" class="easyui-linkbutton" style="width: 95%;height: 30px; margin: 2%" onclick="gfun_cmd_get_videoimg()" > Get_VideoImg </a>
+            <input type="checkbox" checked onchange="(gvar_autovideoimg = $(this).is(':checked'))">AutoVideoImg 
+        </div>
+        <div data-options="region:'center'">
+            <div id="gdiv_devlist" style="width:100%; height:100%">
+                <div style="font-size:xx-large">
+                    @ViewData["deviceip"]<br/>
+                </div>
+                <img style="width:320px; height:240px" id="videoimg" src="" alt="videoimg" />
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

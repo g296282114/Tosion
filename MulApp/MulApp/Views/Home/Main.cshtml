@@ -1,0 +1,343 @@
+﻿@{
+    ViewBag.Title = "MulApp";
+}
+@section head 
+{
+    <script type="text/javascript" src="/Content/Scripts/bshome/bootstrap_min.js"></script>
+    <link href="/Content/Style/bshome/bootstrap.css" rel="stylesheet" />
+    <link href="/Content/Style/bshome/bootstrap-responsive.css" rel="stylesheet" />
+    <link href="/Content/Style/bshome/unicorn_grey.css" rel="stylesheet" />
+    <link href="/Content/Style/bshome/unicorn_main.css" rel="stylesheet" />
+}
+<div id="header">
+    <h1 onclick="gfun_selmenu(this)" menuid="0">
+    </h1>
+</div>
+<div id="user-nav" class="navbar navbar-inverse">
+    <ul class="nav btn-group" style="width: auto; margin: 0px;">
+        <li class="btn btn-inverse"><a href="#" onclick="pop_window(1);" class="dropdown-toggle">
+            <i class="icon icon-envelope"></i><span class="text">@(ViewData["username"])</span>
+            <span id="nv_messagecnt" class="label label-important">0</span> </a></li>
+        <li class="btn btn-inverse dropdown"><a href="index.html#" data-toggle="dropdown"
+            data-target="#menu-messages" class="dropdown-toggle"><i class="icon icon-cog"></i>
+            <span class="text">Settings</span> <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li><a class="sAdd" title="" href="#">New Message</a></li>
+                <li><a class="sInbox" title="" href="index.html#">employee</a></li>
+                <li><a class="sOutbox" title="" href="index.html#">send message</a></li>
+                <li><a class="sTrash" onclick="launchFullscreen()" title="" href="#">Full Screen</a></li>
+            </ul>
+        </li>
+        <li class="btn btn-inverse"><a id="gl_FullScreen" href="/logon/loginout" title=""><i
+            class="icon icon-share-alt"></i><span class="text">Logo Out</span></a></li>
+    </ul>
+</div>
+<div id="sidebar">
+    <a href="#" class="visible-phone"><i class="icon icon-th-list"></i>Menus</a>
+</div>
+<div id="content">
+    <div id="content-header">
+    </div>
+    <div>
+    </div>
+    <div id="breadcrumb">
+        <a href="#" style="background-image: none; display: none" onclick="selmenu(this)"><i
+            class="icon-ok"></i>OK</a> <a href="#" style="background-image: none; display: none"
+                onclick="selmenu(this)"><i class="icon-remove"></i>CANCEL</a> <a href="#"
+                    class="current" menuid="0"><i class="icon-home"></i>Home</a>
+    </div>
+    <div id="glf_tabs" class="container-fluid">
+        <div class="datagrid-mask" style="display: none; width: 100%; height: 100%">
+        </div>
+        <div class="datagrid-mask-msg" style="display: none; width: 120px; left: 50%; top: 50%;
+            margin-left: -60px; margin-top: -8px; text-align: center">
+            Loading ...</div>
+        <div id="glf_tabs_home" style="display: block; width: 100%; height: 100%">
+            <div style="padding-top: 100px; margin-left: auto; margin-right: auto; width: 60%;
+                height: 60%;">
+            </div>
+        </div>
+        <div id="glf_tabs_con" style="display: none; width: 100%; height: 100%">
+        </div>
+    </div>
+    <div id="glw_w1" class="easyui-window" title="Window Layout" data-options="closed:true,modal:true,collapsible:false,shadow:true"
+        style="width: 280px; height: 480px;">
+        <div id="windows_popup" class="easyui-panel" data-options="fit:true,border:false">
+        </div>
+    </div>
+</div>
+<ul class="typeahead dropdown-menu">
+</ul>
+<script type="text/javascript">
+
+    var gvar_lsttime = 0;
+    function gfun_getterminal_message() {
+
+        $.ajax({
+            type: 'get',
+            url: '/terminalmessage/rec',
+            data: '',
+            dataType: 'json',
+            success: function (data) {
+                var vframe = window.frames[$("iframe[src='" + data["tmodule"] + "']")[0].name];
+                if (vframe)
+                    if (vframe.gfun_terminal_message) {
+                        vframe.gfun_terminal_message(data);
+                    }
+
+                gfun_getterminal_message();
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                if (new Date() - gvar_lsttime > 1000 * 5) {
+                    gvar_lsttime = new Date();
+                    gfun_getterminal_message();
+
+                }
+
+
+            }
+        }); 
+
+    }
+
+    function gfun_showloading(bl) {
+        var str = "";
+        if (bl) {
+            str = "block";
+        }
+        else {
+            str = "none";
+        }
+        $("#glf_tabs").children(".datagrid-mask").css("display", str);
+        $("#glf_tabs").children(".datagrid-mask-msg").css("display", str);
+    }
+
+    function gfun_navigation_bar(obj) {
+
+        var menuid = $(obj).attr("menuid");
+        $("#breadcrumb").children("a").removeClass("current");
+        $('#sidebar').find('li.active').removeClass('active');
+        if ($("#breadcrumb").children("a[menuid=" + menuid + "]").length > 0) {
+            $("#breadcrumb").children("a[menuid=" + menuid + "]").addClass("current");
+
+        }
+        else {
+            // onclick="gfun_selmenu(this)"
+            $("#breadcrumb").append('<a href="#" menuid=' + menuid + ' class="current">' + $(obj).text() + '</a>');
+        }
+        if (menuid == "0") {
+            $("#sidebar").find("li.open").removeClass("open").children("ul").css("display", "none");
+            return;
+        }
+        var tli = $(obj).parent();
+        if ($(obj).children('a').length == 0)
+            tli = tli.parent().parent();
+        tli.addClass('active');
+
+    }
+
+    function gfun_tabrefresh() {
+        var frm = $("#glftabs_" + $("#breadcrumb").children("a.current").attr("menuid")).children("iframe");
+        frm.attr("src", frm.attr("src"));
+    }
+
+    function gfun_tabclose() {
+        var menuid = $("#breadcrumb").children("a.current").attr("menuid");
+
+        $("#glftabs_" + menuid).panel("destroy");
+        $("#breadcrumb").children("a.current").remove();
+        $("#breadcrumb").children("a[menuid]").last().click();
+    }
+
+    function gfun_tabload(obj) {
+        gfun_showloading(false);
+        $(window.frames[$(obj).attr("name")].document).bind("selectstart", function () { return false; });
+
+        if (window.frames[$(obj).attr("name")].gfun_height) {
+            window.frames[$(obj).attr("name")].gfun_height($("#glf_tabs").width(), $("#glf_tabs").height() - 30);
+        }
+    }
+
+    function gfun_newtab(menuid, iframeurl, titlename) {
+
+        gfun_showloading(true);
+        var tid = "glftabs_" + menuid;
+        var tdiv = $('<div id="' + tid + '" ></div>');
+        var tifr = $('<iframe  name =' + tid + ' "  scrolling=auto onload="gfun_tabload(this)"  frameborder="0" src="' + iframeurl + '" style="width: 100%;height:100%;margin-bottom:-6px"></iframe>');
+
+        tdiv.append(tifr);
+        $("#glf_tabs_con").append(tdiv);
+        tdiv.panel({
+
+            title: titlename,
+            tools: [
+                { iconCls: 'pagination-load',
+                    handler: function () {
+                        gfun_tabrefresh();
+                    }
+                }, {
+                    iconCls: 'panel-tool-close',
+                    handler: function () { gfun_tabclose(); }
+                }]
+        });
+
+        tdiv.panel('open').panel('maximize');
+    }
+
+
+
+    function gfun_selmenu(obj) {
+        
+        var menuid = $(obj).attr("menuid");
+        if (menuid == 0) {
+            $("#glf_tabs_home").css("display", "block");
+            $("#glf_tabs_con").css("display", "none");
+            gfun_navigation_bar(obj);
+            return;
+        }
+        else {
+            $("#glf_tabs_home").css("display", "none");
+            $("#glf_tabs_con").css("display", "block");
+        }
+        var frameurl = $(obj).attr("frameurl");
+        
+
+        if (frameurl == "" || frameurl == "null")
+            return;
+
+
+        $("#glf_tabs_con").children(".panel").children(".panel-body").panel("close");
+        var tid = "glftabs_" + menuid;
+        if ($("#" + tid).length <= 0) {
+            gfun_newtab(menuid, frameurl, $(obj).text());
+        }
+        $("#" + tid).panel('open').panel('maximize');
+
+        gfun_navigation_bar(obj);
+
+    }
+
+    function gfun_menuinit() {
+
+
+        $('.submenu > a').click(function (e) {
+            e.preventDefault();
+            var submenu = $(this).siblings('ul');
+            var li = $(this).parents('li');
+            var submenus = $('#sidebar li.submenu ul');
+            var submenus_parents = $('#sidebar li.submenu');
+            if (li.hasClass('open')) {
+                if (($(window).width() > 768) || ($(window).width() < 479)) {
+                    submenu.slideUp();
+                } else {
+                    submenu.fadeOut(250);
+                }
+                li.removeClass('open');
+            } else {
+                if (($(window).width() > 768) || ($(window).width() < 479)) {
+                    submenus.slideUp();
+                    submenu.slideDown();
+                } else {
+                    submenus.fadeOut(250);
+                    submenu.fadeIn(250);
+                }
+                submenus_parents.removeClass('open');
+                li.addClass('open');
+            }
+        });
+
+        var ul = $('#sidebar > ul');
+
+        $('#sidebar > a').click(function (e) {
+            e.preventDefault();
+            var sidebar = $('#sidebar');
+            if (sidebar.hasClass('open')) {
+                sidebar.removeClass('open');
+                ul.slideUp(250);
+            } else {
+                sidebar.addClass('open');
+                ul.slideDown(250);
+            }
+        });
+
+    };
+
+    function gfun_getmenu() {
+        gfun_showloading(true);
+        $.getJSON("/home/menujson", function (data) {
+            gfun_showloading(false);
+            var ul = $('<ul style="display: block;"></ul>');
+
+            var menuid = 1;
+
+            for (t1 in data) {
+                var tli = $('<li class="submenu"></li>');
+                var ta = $('<a href="#" onclick="gfun_selmenu(this)" menuid = "' + menuid++ + '" frameurl="' + data[t1].menuurl + '"></a>');
+                var ti = $('<i class="icon ' + data[t1].menuico + '"></i>');
+                var tsp1 = $('<span>' + data[t1].menuname + '</span>');
+                var tsp2 = $('<span class="label">' + data[t1].lmt.length + '</span>');
+                ta.append(ti).append(tsp1);
+                if (data[t1].lmt.length > 0) {
+                    ta.append(tsp2);
+                }
+                tli.append(ta);
+                if (data[t1].lmt.length > 0) {
+                    var tul = $('<ul style="display: none;"></ul>');
+                    for (t2 in data[t1].lmt) {
+                        var tli1 = $('<li></li>');
+                        var ta1 = $('<a href="#" frameurl="' + data[t1].lmt[t2].menuurl + '" onclick="gfun_selmenu(this)"  menuid = "' + menuid++ + '" >' + data[t1].lmt[t2].menuname + '</a>');
+                        tli1.append(ta1);
+                        tul.append(tli1);
+                    }
+                    tli.append(tul);
+                }
+
+                ul.append(tli);
+            }
+            $('#sidebar').addClass('open').append(ul);
+            gfun_menuinit();
+        });
+    }
+
+
+    function gfun_contentheight() {
+        var tmp = $(window).height();
+        tmp -= 78;
+        if ($(window).width() > 479) {
+            tmp += 36;
+
+        }
+        else {
+            tmp -= 31;
+
+        }
+        if (tmp < 520) tmp = 520;
+        tmp -= $("#content-header").height();
+        tmp -= $("#breadcrumb").height();
+        if ($('#sidebar').children('a').css("display") == 'block') {
+            $('#sidebar').removeClass('open').children('ul').css('display', 'none');
+        }
+        else {
+            $('#sidebar').addClass('open').children('ul').css('display', 'block');
+        }
+        $("#glf_tabs").css({ height: tmp });
+
+    }
+
+    $(document).ready(function () {
+
+        $(document).bind("selectstart", function () { return false; });
+
+        gfun_contentheight();
+
+        $(window).resize(function () {
+            gfun_contentheight();
+        });
+
+        gfun_getmenu();
+        gfun_getterminal_message();
+
+  
+    });
+</script>

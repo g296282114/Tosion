@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "TmlTest";
+}
+<script>
+
+    var g_sendsocket = {};
+            g_sendsocket["cmd"] = "";
+            g_sendsocket["fmodule"] = "/terminal/TmlTest";
+            g_sendsocket["tip"] = "@ViewData["sip"]";
+            g_sendsocket["tmodule"] = "gcmdtest";
+            g_sendsocket["data"] = "";
+
+        function gfun_cmd_set_led(vl)
+        {
+            if(! vl in [0,1])
+            return;
+
+            g_sendsocket["cmd"] = "set_led";
+            g_sendsocket["data"] = vl;
+
+            $.post("/terminal/SendData", JSON.stringify(g_sendsocket), null);
+             
+        }
+
+        function gfun_height(bwidth, bheight) {
+        $('#content').height(bheight);
+        $('#gl_layout').layout().layout('resize');
+        if ($("#gl_layout").layout('options').width < 400) {
+            if (!$("#gl_layout").layout("panel", "east").panel('options').collapsed) {
+                $("#gl_layout").layout("collapse", "east");
+            }
+        }
+        else {
+            if ($("#gl_layout").layout("panel", "east").panel('options').collapsed) {
+                $("#gl_layout").layout("expand", "east");
+            }
+        }
+    }
+
+</script>
+<div id="content" style="height: 408px">
+    <div id="gl_layout" class="easyui-layout" data-options="fit:true">
+        <div data-options="region:'east',split:true,title:'Settings',collapsed:true" style="width: 200px;
+            padding-top: 10px">
+            <a href="#" class="easyui-linkbutton" style="width: 95%; height: 30px; margin: 2%"
+                onclick="gfun_cmd_set_led(1)">Open </a><a href="#" class="easyui-linkbutton" style="width: 95%;
+                    height: 30px; margin: 2%" onclick="gfun_cmd_set_led(0)">Close </a>
+        </div>
+        <div data-options="region:'center'">
+
+        </div>
+    </div>
+</div>

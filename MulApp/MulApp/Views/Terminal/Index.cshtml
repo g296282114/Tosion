@@ -1,0 +1,228 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<style type="text/css">
+    .gt_1
+    {
+        width: 140px;
+        height: 180px;
+        background-color: #dddddd;
+        position: relative;
+        float: left;
+    }
+    
+    .gt_2
+    {
+        width: 90%;
+        height: 90%;
+        margin-left: 4%;
+        margin-top: 5%;
+        border: #acacac solid 1px;
+        background-color: #ffffff;
+        position: absolute;
+    }
+    
+    .gt_3
+    {
+        padding: 5%;
+        width: 90%;
+        color: #cecece;
+        font-size: medium;
+        font-weight: bold;
+    }
+    .gt_4
+    {
+        padding: 5%;
+        width: 90%;
+        bottom: 0;
+        color: #cecece;
+        font-size: medium;
+        font-weight: bold;
+        position: absolute;
+    }
+    
+    
+    .gt_5
+    {
+        background-color: #ffffff;
+    }
+    .gt_6
+    {
+        border: #a4cef9 solid 1px;
+    }
+    
+    .gt_7
+    {
+        width: 100%;
+        height: 100%;
+        position: relative;
+    }
+    
+    .gt_8
+    {
+        margin: 5%;
+        bottom: 0;
+        right: 0;
+        width:16px;
+        height:16px;
+        position: absolute;
+        overflow:hidden;
+    }
+
+    .gt_dev
+    {
+        position:absolute;
+        margin-left:0px;
+        margin-top:-16px; 
+    }
+    .gt_sel
+    {
+        margin-left:-16px;
+    }
+</style>
+<script type="text/javascript">
+
+
+    var g_sip = "";
+    var g_sname = "";
+
+    function gfun_create_terminal_item(data) {
+
+        var lstterminal = JSON.parse(data["data"]);
+
+        for(tmp in lstterminal) {
+            var v1 = $('<div onmouseout="gfun_hover(this,false)" onmouseover="gfun_hover(this,true)" ondblclick="gfun_devdbclk(this)" onclick="gfun_devclk(this)" class="gt_1"></div>').attr('sip', lstterminal[tmp]["sip"]).attr('sname', lstterminal[tmp]["sname"]);
+            var v2 = $('<div class="gt_2"></div>');
+            var v3 = $('<div class="gt_7"></div>');
+            var v4_1 = $('<div class="gt_3"></div>').html(lstterminal[tmp]["sip"]);
+            var v4_2 = $('<div class="gt_4"></div>').html(lstterminal[tmp]["sname"]);
+            var v4_3 = $('<div class="gt_8"></div>').html('<img src="../content/style/img/devbtn.png" class="gt_dev" alt="" />');
+            v3.append(v4_1).append(v4_2).append(v4_3);
+            v2.append(v3);
+            v1.append(v2);
+            $("#gdiv_devlist").append(v1);
+        }
+
+
+
+    }
+
+    function gfun_getselected_ip() {
+        var v1 = $("#gdiv_devlist").find("div.gt_9");
+        var v2 = v1[0];
+        return v2.innerText;
+    }
+
+    function gfun_terminal_message(data) {
+        switch (data["cmd"]) {
+            case "return_terminal":
+                gfun_create_terminal_item(data);
+                break;
+            case "return_name":
+                $("#gdiv_devlist").find("div[ip='" + data["fip"] + "']")[0].innerText = data["data"];
+                break;
+
+        }
+
+    }
+
+    function gfun_facepass() {
+        var devip = gfun_getselected_ip();
+
+        if (!devip)
+            return;
+        self.location.href = "/terminal/facepass?ip=" + devip;
+    }
+
+    function gfun_sendsocket() {
+        $("#gdiv_devlist").empty();
+        var socket = {};
+        socket["cmd"] = "get_terminal";
+        socket["fmodule"] = "/terminal/index";
+        $.post("/terminal/SendData", JSON.stringify(socket), null);
+    }
+
+    function gfun_cmd_getname() {
+        var socket = {};
+        socket["cmd"] = "get_name";
+        socket["tip"] = gfun_getselected_ip();
+        socket["fmodule"] = "/terminal/index";
+        $.post("/terminal/SendData", JSON.stringify(socket), null);  
+    }
+
+    var led = 0;
+    function gfun_cmd_testcmd() {
+        if (led == 0)
+            led = 1;
+        else
+            led = 0;
+        var socket = {};
+        socket["cmd"] = "set_led";
+        socket["tip"] = "192.168.1.140";
+        socket["fmodule"] = "/terminal/index";
+        socket["tmodule"] = "gcmdtest"
+        socket["data"] = led;
+        $.post("/terminal/SendData", JSON.stringify(socket), null);
+    }
+
+    function gfun_hover(obj, bl) {
+        if (bl) {
+            $(obj).addClass("gt_5");
+            $(obj).children("div").addClass("gt_6");
+        }
+        else {
+            $(obj).removeClass("gt_5");
+            $(obj).children("div").removeClass("gt_6");
+        }
+
+    }
+
+    function gfun_devclk(obj) {
+        $("#gdiv_devlist").find("img").removeClass("gt_sel");
+        $(obj).find("img").addClass("gt_sel");
+
+        g_sip = $(obj).attr("sip");
+        g_sname = $(obj).attr("sname");
+    }
+
+    function gfun_devdbclk(obj) {
+
+        if (g_sname == '')
+            return;
+
+        self.location.href = "/terminal/tml"+ g_sname +"?sip=" + g_sip;
+    }
+
+    function gfun_height(bwidth, bheight) {
+        $('#content').height(bheight);
+        $('#gl_layout').layout().layout('resize');
+        if ($("#gl_layout").layout('options').width < 400) {
+            if (!$("#gl_layout").layout("panel", "east").panel('options').collapsed) {
+                $("#gl_layout").layout("collapse", "east");
+            }
+        }
+        else {
+            if ($("#gl_layout").layout("panel", "east").panel('options').collapsed) {
+                $("#gl_layout").layout("expand", "east");
+            }
+        }
+    }
+
+</script>
+<div id="content" style="height: 408px">
+    <div id="gl_layout" class="easyui-layout" data-options="fit:true">
+        <div id="g_devbtn" data-options="region:'east',split:true,title:'Settings',collapsed:true"
+            style="width: 200px; padding-top: 10px">
+            <a href="#" class="easyui-linkbutton" style="width: 95%;height: 30px; margin: 2%" onclick="gfun_sendsocket()" > ListDevice </a>
+            <a href="#" class="easyui-linkbutton" style="width: 95%;height: 30px; margin: 2%" onclick="gfun_cmd_getname()" > GetName </a>
+            <a href="#" class="easyui-linkbutton" style="width: 95%;height: 30px; margin: 2%" onclick="gfun_cmd_testcmd()" > TestDevice </a>
+            <a href="#" class="easyui-linkbutton" style="width: 95%;height: 30px; margin: 2%" onclick="gfun_facepass()" > FacePass </a>
+        </div>
+        <div data-options="region:'center'">
+            <div id="gdiv_devlist" style="width:100%; height:100%">
+              @ViewData["Terminal_Con"]
+            </div>
+        </div>
+    </div>
+</div>
+

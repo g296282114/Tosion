@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+     <script type="text/javascript" src="/Content/Scripts/jquery_min.js"></script>
+     <script type="text/javascript" src="/Content/Scripts/easyloader.js"></script>
+    <script type="text/javascript" src="/Content/Scripts/jquery_easyui.js"></script>
+    <link href="/Content/Style/css.css" rel="stylesheet"/>
+    <link href="/Content/Style/metro/easyui.css" rel="stylesheet"/>
+    <link href="/Content/Style/icon.css" rel="stylesheet"/>
+  
+    @RenderSection("head", false) 
+</head>
+<body>
+    @RenderBody()
+    
+    @RenderSection("scripts", required: false)
+</body>
+</html>
