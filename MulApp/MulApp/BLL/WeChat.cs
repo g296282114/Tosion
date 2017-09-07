@@ -13,14 +13,14 @@ namespace MulApp.BLL
 
 
         static string V_AcToken = "";
-        static DateTime V_AcTime = DateTime.Now;
+        static DateTime V_AcTime = BLL.GlfFun.Now();
         static int V_AcExpires = 0;
 
         public static string GetAcToken()
         {
             try
             {
-                if (DateTime.Now >= V_AcTime.AddSeconds(V_AcExpires))
+                if (BLL.GlfFun.Now() >= V_AcTime.AddSeconds(V_AcExpires))
                     V_AcToken = "";
 
                 if (V_AcToken != "")
@@ -32,7 +32,7 @@ namespace MulApp.BLL
                 BLL.GlfFun.AddLog("New actoken:" + wci.access_token);
 
                 V_AcToken = wci.access_token;
-                V_AcTime = DateTime.Now;
+                V_AcTime = BLL.GlfFun.Now();
                 V_AcExpires = wci.expires_in;
 
                 return V_AcToken;

@@ -9,11 +9,16 @@ namespace MulApp.BLL
     public class GlfFun
     {
 
+        public static DateTime Now()
+        {
+            return DateTime.Now.AddSeconds(28800 - TimeZoneInfo.Local.BaseUtcOffset.TotalSeconds);
+        }
+
         public static void AddLog(Exception ex)
         {
             var st = new System.Diagnostics.StackTrace();
             System.Reflection.MethodBase mb = st.GetFrame(1).GetMethod();
-            string str = DateTime.Now.ToString() + " " + mb.ReflectedType.FullName + "." + mb.Name + "----->" + System.Web.HttpUtility.HtmlEncode(ex.Message);
+            string str = Now().ToString() + " " + mb.ReflectedType.FullName + "." + mb.Name + "----->" + System.Web.HttpUtility.HtmlEncode(ex.Message);
 
             if (GlfVar.lstErr.Count > 2000)
             {
@@ -26,7 +31,7 @@ namespace MulApp.BLL
         {
             var st = new System.Diagnostics.StackTrace();
             System.Reflection.MethodBase mb = st.GetFrame(1).GetMethod();
-            string str = DateTime.Now.ToString() + " " + mb.ReflectedType.FullName + "." + mb.Name + "----->" + System.Web.HttpUtility.HtmlEncode(sdata);
+            string str = Now().ToString() + " " + mb.ReflectedType.FullName + "." + mb.Name + "----->" + System.Web.HttpUtility.HtmlEncode(sdata);
 
             if (GlfVar.lstLog.Count > 2000)
             {
