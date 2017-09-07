@@ -24,7 +24,7 @@ namespace MulApp.BLL
                     if (_con == null)
                     {
                         _con = new SqlConnection();
-                        _con.ConnectionString = "Server=d6106ddb-b334-4814-b4b5-a7e700334c4b.sqlserver.sequelizer.com;Database=dbd6106ddbb3344814b4b5a7e700334c4b;User ID=skvsvqrdmjdrtshi;Password=Ce8wKogzJykfqyQ7B64HJajFc5qfW62sLYAiffFDrxhzAJZeMioWXSRB4AtN7aKM;";
+                        _con.ConnectionString = "Server=1219f07d-efa1-4e8b-9874-a61d0094d912.sqlserver.sequelizer.com;Database=db1219f07defa14e8b9874a61d0094d912;User ID=vjkddngmyeyyefly;Password=ammr6EAoe68jG3ZZUCKGUvKDvXyad8vBmSP7Mdas4kemGe5esfjPJ2mLHQ4ggzjf;";
                         _con.Open();
                     }
 
