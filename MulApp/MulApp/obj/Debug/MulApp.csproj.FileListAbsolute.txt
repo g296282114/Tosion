@@ -79,4 +79,3 @@ C:\vstmp\Tosion\MulApp\MulApp\bin\zh-Hans\System.Web.WebPages.Deployment.resourc
 C:\vstmp\Tosion\MulApp\MulApp\bin\zh-Hans\System.Web.WebPages.Razor.resources.dll
 C:\vstmp\Tosion\MulApp\MulApp\obj\Debug\MulApp.dll
 C:\vstmp\Tosion\MulApp\MulApp\obj\Debug\MulApp.pdb
-C:\vstmp\Tosion\MulApp\MulApp\obj\Debug\MulApp.csprojResolveAssemblyReference.cache

@@ -104,6 +104,11 @@ namespace MulApp.BLL
             System.IO.Stream streamResponse = response.GetResponseStream();
             System.IO.StreamReader streamRead = new System.IO.StreamReader(streamResponse);
             String responseString = streamRead.ReadToEnd();
+
+            AddLog("SendPostStr " + url + "  " + postString);
+            
+            AddLog(responseString);
+
             return responseString;
         }
 

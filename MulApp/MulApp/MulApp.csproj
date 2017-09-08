@@ -117,6 +117,7 @@
     <Compile Include="Controllers\TerminalController.cs" />
     <Compile Include="Controllers\TerminalMessageController.cs" />
     <Compile Include="Controllers\WeChatController.cs" />
+    <Compile Include="Controllers\WeChatWebController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -131,6 +132,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="Content\Json\WeChatButton.js" />
     <Content Include="Content\Scripts\bshome\bootstrap_min.js" />
     <Content Include="Content\Scripts\easyloader.js" />
     <Content Include="Content\Scripts\jquery_easyui.js" />
@@ -387,6 +389,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Terminal\TmlTest.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\WeChatWeb\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

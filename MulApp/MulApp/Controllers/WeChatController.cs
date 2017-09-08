@@ -33,6 +33,9 @@ namespace MulApp.Controllers
             {
                 string poststr = "";
                 poststr = BLL.GlfFun.GetPostStr(Request);
+
+                BLL.GlfFun.AddLog("WeChatRec " + poststr);
+
                 System.Xml.XmlDocument msgxml = new System.Xml.XmlDocument();
                 msgxml.LoadXml(poststr);
 

@@ -26,7 +26,7 @@ namespace MulApp.BLL
                 if (V_AcToken != "")
                     return V_AcToken;
 
-                string surl = Models.WeChat.WECHAT_ACTOKEN + "?grant_type=client_credential&appid=" + C_WeChat_AppId + "&secret=" + C_WeChat_AppSecret;//Set Actoken
+                string surl = Models.WeChat.Cfg.url.ACTOKEN + "?grant_type=client_credential&appid=" + C_WeChat_AppId + "&secret=" + C_WeChat_AppSecret;//Set Actoken
                 string sret = BLL.GlfFun.SendPostStr(surl, "");
                 Models.WeChat.WeChatActoken wci = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.WeChat.WeChatActoken>(sret);
                 BLL.GlfFun.AddLog("New actoken:" + wci.access_token);
@@ -43,10 +43,16 @@ namespace MulApp.BLL
                 BLL.GlfFun.AddLog(ex);
                 return "";
             }
-            
+
         }
 
-        public static bool CheckSignature(string signature,string timestamp, string nonce)
+        public static string RefreshWechatButton()
+        {
+            string wechatbuttonstr = BLL.GlfFun.ReadStrFromFile("Content\\Json\\WechatButton.js");
+            return SendWechat(Models.WeChat.Cfg.url.SETBUTTON, wechatbuttonstr);
+        }
+
+        public static bool CheckSignature(string signature, string timestamp, string nonce)
         {
             string[] ArrTmp = { C_WeChat_Token, timestamp, nonce };
             Array.Sort(ArrTmp);
@@ -63,13 +69,13 @@ namespace MulApp.BLL
             }
         }
 
-        public static string SendWechat(string url,string parm)
+        public static string SendWechat(string url, string parm)
         {
             if (url == "")
                 return "";
 
             string actoken = GetAcToken();
-            
+
             if (actoken == "")
                 return "";
 
@@ -85,17 +91,32 @@ namespace MulApp.BLL
                 string str1 = "";
                 System.Xml.XmlElement rrootElement = msgxml.DocumentElement;
 
-                string msgtype = rrootElement.SelectSingleNode("MsgType").InnerText;
+                System.Xml.XmlNode xml_msgtype = rrootElement.SelectSingleNode("MsgType"); 
+                System.Xml.XmlNode xml_content = rrootElement.SelectSingleNode("Content");
+                System.Xml.XmlNode xml_event = rrootElement.SelectSingleNode("Event");
+                System.Xml.XmlNode xml_eventmsg = rrootElement.SelectSingleNode("EventKey");
 
 
-
-
-                switch (msgtype)
+                switch (xml_msgtype.InnerText)
                 {
                     case "text":
-
-                        System.Xml.XmlNode xml_content = rrootElement.SelectSingleNode("Content");
                         xml_content.InnerText = "rec:" + xml_content.InnerText;
+                        break;
+
+                    case "event":
+
+                    switch(xml_event.InnerText)
+                        {
+                            case "CLICK":
+                                switch (xml_eventmsg.InnerText)
+                                {
+                                    case "TOSION_BUTTON_1_0":
+                                        xml_msgtype.InnerText = "text";
+                                        xml_content.InnerText = "buttonclick";
+                                        break;
+                                }
+                                break;
+                        }
                         break;
                 }
 
