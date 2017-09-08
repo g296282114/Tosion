@@ -105,7 +105,7 @@ namespace MulApp.BLL
 
                     case "event":
 
-                    switch(xml_event.InnerText)
+                        switch (xml_event.InnerText)
                         {
                             case "CLICK":
                                 switch (xml_eventmsg.InnerText)
@@ -116,8 +116,14 @@ namespace MulApp.BLL
                                         break;
                                 }
                                 break;
+                            default:
+                                return false;
                         }
                         break;
+
+                    default:
+                        return false;
+
                 }
 
 

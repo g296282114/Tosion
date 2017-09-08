@@ -34,7 +34,7 @@ namespace MulApp.Controllers
                 string poststr = "";
                 poststr = BLL.GlfFun.GetPostStr(Request);
 
-                BLL.GlfFun.AddLog("WeChatRec " + poststr);
+                
 
                 System.Xml.XmlDocument msgxml = new System.Xml.XmlDocument();
                 msgxml.LoadXml(poststr);
@@ -42,7 +42,12 @@ namespace MulApp.Controllers
                 if (!BLL.WeChat.CmdMess(ref msgxml))
                     return Content("");
 
-                return Content(msgxml.OuterXml);
+                string rstr = msgxml.OuterXml;
+
+                BLL.GlfFun.AddLog("WeChatRec " + poststr);
+                BLL.GlfFun.AddLog(rstr);
+                
+                return Content(rstr);
             }
             catch (Exception e)
             {
