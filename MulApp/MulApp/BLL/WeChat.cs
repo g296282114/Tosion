@@ -83,12 +83,12 @@ namespace MulApp.BLL
 
         }
 
-        public static string CmdMess(System.Xml.XmlDocument msgxml)
+        public static string CmdMess(string xmlstr)
         {
 
             try
             {
-                Models.WeChat.WeChatXml wechatxml = new Models.WeChat.WeChatXml(msgxml);
+                Models.WeChat.WeChatXml wechatxml = new Models.WeChat.WeChatXml(xmlstr);
 
                 switch (wechatxml["MsgType"])
                 {
@@ -120,7 +120,7 @@ namespace MulApp.BLL
                 }
 
 
-                return wechatxml.wechatxml.OuterXml;
+                return wechatxml.XmlStr();
             }
             catch (Exception ex)
             {

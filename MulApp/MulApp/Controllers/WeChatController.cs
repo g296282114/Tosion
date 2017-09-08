@@ -34,12 +34,8 @@ namespace MulApp.Controllers
                 string poststr = "";
                 poststr = BLL.GlfFun.GetPostStr(Request);
 
-                
 
-                System.Xml.XmlDocument msgxml = new System.Xml.XmlDocument();
-                msgxml.LoadXml(poststr);
-
-                string rstr = BLL.WeChat.CmdMess(msgxml);
+                string rstr = BLL.WeChat.CmdMess(poststr);
 
                 if (rstr != "")
                 {

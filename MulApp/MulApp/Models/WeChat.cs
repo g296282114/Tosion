@@ -26,14 +26,24 @@ namespace MulApp.Models
 
         public class WeChatXml
         {
-            public System.Xml.XmlDocument wechatxml;
-            System.Xml.XmlElement rrootElement;
+            System.Xml.XmlDocument wechatxml = null;
+
+            public string XmlStr()
+            {
+                if (wechatxml == null)
+                    return "";
+
+                return wechatxml.InnerXml;
+            }
 
             public string this[string snode]
             {
                 get 
                 {
-                    System.Xml.XmlNode xmlnode = rrootElement.SelectSingleNode(snode);
+                    if (wechatxml == null)
+                        return "";
+
+                    System.Xml.XmlNode xmlnode = wechatxml.DocumentElement.SelectSingleNode(snode);
 
                     if (xmlnode == null)
                     {
@@ -46,13 +56,15 @@ namespace MulApp.Models
                 {
                     try
                     {
-                        System.Xml.XmlNode xmlnode = rrootElement.SelectSingleNode(snode);
+                        if (wechatxml == null)
+                            return;
+
+                        System.Xml.XmlNode xmlnode = wechatxml.DocumentElement.SelectSingleNode(snode);
 
                         if (xmlnode == null)
                         {
-                            wechatxml.CreateElement(snode);
-
-                            xmlnode = rrootElement.SelectSingleNode(snode);
+                            xmlnode = wechatxml.CreateElement(snode);
+                            wechatxml.DocumentElement.AppendChild(xmlnode);
                         }
 
                         xmlnode.InnerText = value;
@@ -66,17 +78,34 @@ namespace MulApp.Models
             }
 
             
-            public WeChatXml(System.Xml.XmlDocument xml)
+            public WeChatXml(string xmlstr)
             {
-                wechatxml = xml;
-                rrootElement = wechatxml.DocumentElement;
+                try
+                {
+                    if (xmlstr == "")
+                        return;
 
-                string str = this["FromUserName"];
-                this["FromUserName"] = this["ToUserName"];
-                this["ToUserName"] = str;
+                    wechatxml = new System.Xml.XmlDocument();
+                    wechatxml.LoadXml(xmlstr);
 
-                TimeSpan ts = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
-                this["CreateTime"] = Convert.ToInt64(ts.TotalSeconds).ToString();
+                    if (wechatxml.DocumentElement == null)
+                        wechatxml.CreateElement("xml");
+
+                    string str = this["FromUserName"];
+                    this["FromUserName"] = this["ToUserName"];
+                    this["ToUserName"] = str;
+
+                    TimeSpan ts = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
+                    this["CreateTime"] = Convert.ToInt64(ts.TotalSeconds).ToString();
+
+                    
+                }
+                catch (Exception ex)
+                {
+                    wechatxml = null;
+                    BLL.GlfFun.AddLog(ex);
+                }
+                
             }
 
             

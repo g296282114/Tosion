@@ -13,19 +13,11 @@ namespace MulApp.Controllers
 
         public string Test()
         {
-            int i = 1;
-            try
-            {
-                
-                i = 0;
-                i = i / i;
-            }
-            catch (Exception ex)
-            {
-                BLL.GlfFun.AddLog(ex);
-            }
+            Models.WeChat.WeChatXml xml = new Models.WeChat.WeChatXml("<xml></xml>");
+            xml["a"] = "sdfsdf";
+
+            return xml.XmlStr();
   
-            return i.ToString();
         }
 
         public string Now()
