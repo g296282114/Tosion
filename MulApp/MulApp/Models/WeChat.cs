@@ -24,6 +24,64 @@ namespace MulApp.Models
       
         }
 
+        public class WeChatXml
+        {
+            public System.Xml.XmlDocument wechatxml;
+            System.Xml.XmlElement rrootElement;
+
+            public string this[string snode]
+            {
+                get 
+                {
+                    System.Xml.XmlNode xmlnode = rrootElement.SelectSingleNode(snode);
+
+                    if (xmlnode == null)
+                    {
+                        return "";
+                    }
+
+                    return xmlnode.InnerText;
+                }
+                set 
+                {
+                    try
+                    {
+                        System.Xml.XmlNode xmlnode = rrootElement.SelectSingleNode(snode);
+
+                        if (xmlnode == null)
+                        {
+                            wechatxml.CreateElement(snode);
+
+                            xmlnode = rrootElement.SelectSingleNode(snode);
+                        }
+
+                        xmlnode.InnerText = value;
+
+                    }
+                    catch (Exception ex)
+                    {
+                        BLL.GlfFun.AddLog(ex);
+                    }
+                }
+            }
+
+            
+            public WeChatXml(System.Xml.XmlDocument xml)
+            {
+                wechatxml = xml;
+                rrootElement = wechatxml.DocumentElement;
+
+                string str = this["FromUserName"];
+                this["FromUserName"] = this["ToUserName"];
+                this["ToUserName"] = str;
+
+                TimeSpan ts = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
+                this["CreateTime"] = Convert.ToInt64(ts.TotalSeconds).ToString();
+            }
+
+            
+        }
+
         public class WeChatActoken
         {
             public string access_token { get; set; }

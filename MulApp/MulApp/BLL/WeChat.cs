@@ -83,63 +83,49 @@ namespace MulApp.BLL
 
         }
 
-        public static Boolean CmdMess(ref System.Xml.XmlDocument msgxml)
+        public static string CmdMess(System.Xml.XmlDocument msgxml)
         {
 
             try
             {
-                string str1 = "";
-                System.Xml.XmlElement rrootElement = msgxml.DocumentElement;
+                Models.WeChat.WeChatXml wechatxml = new Models.WeChat.WeChatXml(msgxml);
 
-                System.Xml.XmlNode xml_msgtype = rrootElement.SelectSingleNode("MsgType"); 
-                System.Xml.XmlNode xml_content = rrootElement.SelectSingleNode("Content");
-                System.Xml.XmlNode xml_event = rrootElement.SelectSingleNode("Event");
-                System.Xml.XmlNode xml_eventmsg = rrootElement.SelectSingleNode("EventKey");
-
-
-                switch (xml_msgtype.InnerText)
+                switch (wechatxml["MsgType"])
                 {
                     case "text":
-                        xml_content.InnerText = "rec:" + xml_content.InnerText;
+                        wechatxml["Content"] = "rectest:" + wechatxml["Content"];
                         break;
 
                     case "event":
 
-                        switch (xml_event.InnerText)
+                        switch (wechatxml["Event"])
                         {
                             case "CLICK":
-                                switch (xml_eventmsg.InnerText)
+                                switch (wechatxml["EventKey"])
                                 {
                                     case "TOSION_BUTTON_1_0":
-                                        xml_msgtype.InnerText = "text";
-                                        xml_content.InnerText = "buttonclick";
+                                        wechatxml["MsgType"] = "text";
+                                        wechatxml["Content"] = "buttonclick";
                                         break;
                                 }
                                 break;
                             default:
-                                return false;
+                                return "";
                         }
                         break;
 
                     default:
-                        return false;
+                        return "";
 
                 }
 
 
-                str1 = rrootElement.SelectSingleNode("FromUserName").InnerText;
-                rrootElement.SelectSingleNode("FromUserName").InnerText = rrootElement.SelectSingleNode("ToUserName").InnerText;
-                rrootElement.SelectSingleNode("ToUserName").InnerText = str1;
-
-                TimeSpan ts = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
-                rrootElement.SelectSingleNode("CreateTime").InnerText = Convert.ToInt64(ts.TotalSeconds).ToString();
-
-                return true;
+                return wechatxml.wechatxml.OuterXml;
             }
             catch (Exception ex)
             {
                 BLL.GlfFun.AddLog(ex);
-                return false;
+                return "";
             }
 
         }

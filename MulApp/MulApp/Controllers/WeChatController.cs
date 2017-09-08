@@ -39,13 +39,13 @@ namespace MulApp.Controllers
                 System.Xml.XmlDocument msgxml = new System.Xml.XmlDocument();
                 msgxml.LoadXml(poststr);
 
-                if (!BLL.WeChat.CmdMess(ref msgxml))
-                    return Content("");
+                string rstr = BLL.WeChat.CmdMess(msgxml);
 
-                string rstr = msgxml.OuterXml;
-
-                BLL.GlfFun.AddLog("WeChatRec " + poststr);
-                BLL.GlfFun.AddLog(rstr);
+                if (rstr != "")
+                {
+                    BLL.GlfFun.AddLog("WeChatRec " + poststr);
+                    BLL.GlfFun.AddLog(rstr);
+                }
                 
                 return Content(rstr);
             }
