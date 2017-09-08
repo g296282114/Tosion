@@ -16,15 +16,19 @@ namespace MulApp.BLL
 
         public static void AddLog(Exception ex)
         {
-            var st = new System.Diagnostics.StackTrace();
-            System.Reflection.MethodBase mb = st.GetFrame(1).GetMethod();
-            string str = Now().ToString() + " " + mb.ReflectedType.FullName + "." + mb.Name + "----->" + System.Web.HttpUtility.HtmlEncode(ex.Message);
+            
+            //var st = new System.Diagnostics.StackTrace();
+            //System.Reflection.MethodBase mb = st.GetFrame(1).GetMethod();
+            //string str = Now().ToString() + "  " + ex.StackTrace + " " + mb.ReflectedType.FullName + "." + mb.Name + " (" + ex.StackTrace + " )" + "----->" + System.Web.HttpUtility.HtmlEncode(ex.Message);
 
-            if (GlfVar.lstErr.Count > 2000)
+
+            string str = Now().ToString() + "  " + ex.StackTrace + "  " + ex.Message;
+
+            while (GlfVar.lstErr.Count > 2000)
             {
                 GlfVar.lstErr.RemoveAt(0);
             }
-            GlfVar.lstErr.Add(str); 
+            GlfVar.lstErr.Add(System.Web.HttpUtility.HtmlEncode(str)); 
         }
 
         public static void AddLog(string sdata)

@@ -11,6 +11,23 @@ namespace MulApp.Controllers
         //
         // GET: /Glf/
 
+        public string Test()
+        {
+            int i = 1;
+            try
+            {
+                
+                i = 0;
+                i = i / i;
+            }
+            catch (Exception ex)
+            {
+                BLL.GlfFun.AddLog(ex);
+            }
+  
+            return i.ToString();
+        }
+
         public string Now()
         {
             return BLL.GlfFun.Now().ToString();
