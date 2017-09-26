@@ -4,6 +4,7 @@
 @section head 
 {
     <script type="text/javascript" src="/Content/Scripts/bshome/bootstrap_min.js"></script>
+    <script type="text/javascript" src="/Content/Scripts/glf_common.js"></script>
     <link href="/Content/Style/bshome/bootstrap.css" rel="stylesheet" />
     <link href="/Content/Style/bshome/bootstrap-responsive.css" rel="stylesheet" />
     <link href="/Content/Style/bshome/unicorn_grey.css" rel="stylesheet" />
@@ -79,11 +80,9 @@
             data: '',
             dataType: 'json',
             success: function (data) {
-                var vframe = window.frames[$("iframe[src='" + data["tmodule"] + "']")[0].name];
-                if (vframe)
-                    if (vframe.gfun_terminal_message) {
-                        vframe.gfun_terminal_message(data);
-                    }
+                if (data["cmd"]) {
+                    gfun_terminal_callback(data);
+                }
 
                 gfun_getterminal_message();
             },
@@ -164,7 +163,7 @@
         gfun_showloading(true);
         var tid = "glftabs_" + menuid;
         var tdiv = $('<div id="' + tid + '" ></div>');
-        var tifr = $('<iframe  name =' + tid + ' "  scrolling=auto onload="gfun_tabload(this)"  frameborder="0" src="' + iframeurl + '" style="width: 100%;height:100%;margin-bottom:-6px"></iframe>');
+        var tifr = $('<iframe id="frm_' + tid + '"  name =' + tid + ' "  scrolling=auto onload="gfun_tabload(this)"  frameborder="0" src="' + iframeurl + '" style="width: 100%;height:100%;margin-bottom:-6px"></iframe>');
 
         tdiv.append(tifr);
         $("#glf_tabs_con").append(tdiv);
@@ -211,6 +210,9 @@
         var tid = "glftabs_" + menuid;
         if ($("#" + tid).length <= 0) {
             gfun_newtab(menuid, frameurl, $(obj).text());
+        }
+        else {
+            $($("#" + tid)[0]).find("iframe").attr("src", frameurl);
         }
         $("#" + tid).panel('open').panel('maximize');
 

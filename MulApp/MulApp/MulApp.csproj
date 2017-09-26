@@ -349,6 +349,7 @@
     <Content Include="Content\Style\metro\validatebox.css" />
     <Content Include="Content\Style\metro\window.css" />
     <Content Include="Content\Style\mobile.css" />
+    <Content Include="Content\Scripts\glf_common.js" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -388,9 +389,6 @@
     <Content Include="Content\Json\Menu.js" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Terminal\T.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Terminal\FacePass.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -398,6 +396,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\WeChatWeb\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Terminal\TmlServer.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Terminal\TmlServerVideo.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Terminal\TmlServerCmd.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

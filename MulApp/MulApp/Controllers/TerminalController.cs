@@ -39,11 +39,24 @@ namespace MulApp.Controllers
             return View();
         }
 
-        public ViewResult FacePass(string ip)
+        public ViewResult TmlServer(string sip)
         {
-            ViewData["deviceip"] = ip;
+            ViewData["sip"] = sip;
             return View();
         }
+
+        public ViewResult TmlServerVideo(string sip)
+        {
+            ViewData["sip"] = sip;
+            return View();
+        }
+
+        public ViewResult TmlServerCmd(string sip)
+        {
+            ViewData["sip"] = sip;
+            return View();
+        }
+
 
         public Boolean SendData(string sdata)
         {
@@ -55,11 +68,6 @@ namespace MulApp.Controllers
         {
             string sdata = BLL.GlfFun.GetPostStr(Request);
             return BLL.Terminal.SendData(sdata);
-        }
-
-        public ViewResult T()
-        {
-            return View();
         }
 
         public ViewResult Index()
@@ -74,13 +82,6 @@ namespace MulApp.Controllers
             }
             
             return View();
-        }
-
-        public void Test()
-        {
-            Models.Terminal.TSocketData dcd = new Models.Terminal.TSocketData();
-            dcd.cmd = "get_name";
-            BLL.Terminal.CmdData(dcd);
         }
 
         [HttpPost]

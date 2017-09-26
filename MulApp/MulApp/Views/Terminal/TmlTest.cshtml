@@ -1,6 +1,10 @@
 ﻿@{
     ViewBag.Title = "TmlTest";
 }
+@section head
+{
+    <script type="text/javascript" src="/Content/Scripts/glf_common.js"></script>
+}
 <script>
 
     var g_sendsocket = {};
@@ -15,27 +19,14 @@
             if(! vl in [0,1])
             return;
 
-            g_sendsocket["cmd"] = "set_led";
+            g_sendsocket["cmd"] = "set_light";
             g_sendsocket["data"] = vl;
 
             $.post("/terminal/SendData", JSON.stringify(g_sendsocket), null);
              
         }
 
-        function gfun_height(bwidth, bheight) {
-        $('#content').height(bheight);
-        $('#gl_layout').layout().layout('resize');
-        if ($("#gl_layout").layout('options').width < 400) {
-            if (!$("#gl_layout").layout("panel", "east").panel('options').collapsed) {
-                $("#gl_layout").layout("collapse", "east");
-            }
-        }
-        else {
-            if ($("#gl_layout").layout("panel", "east").panel('options').collapsed) {
-                $("#gl_layout").layout("expand", "east");
-            }
-        }
-    }
+    
 
 </script>
 <div id="content" style="height: 408px">

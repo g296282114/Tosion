@@ -1,6 +1,10 @@
 ﻿@{
     ViewBag.Title = "Index";
 }
+@section head
+{
+    <script type="text/javascript" src="/Content/Scripts/glf_common.js"></script>
+}
 <style type="text/css">
     .gt_1
     {
@@ -90,6 +94,8 @@
 
         var lstterminal = JSON.parse(data["data"]);
 
+        $("#gdiv_devlist").empty();
+
         for(tmp in lstterminal) {
             var v1 = $('<div onmouseout="gfun_hover(this,false)" onmouseover="gfun_hover(this,true)" ondblclick="gfun_devdbclk(this)" onclick="gfun_devclk(this)" class="gt_1"></div>').attr('sip', lstterminal[tmp]["sip"]).attr('sname', lstterminal[tmp]["sname"]);
             var v2 = $('<div class="gt_2"></div>');
@@ -124,6 +130,13 @@
 
         }
 
+    }
+
+    function gfun_get_terminal() {
+        var socket = {};
+        socket["cmd"] = "get_terminal";
+        socket["fmodule"] = "/terminal/index";
+        $.post("/terminal/SendData", JSON.stringify(socket), null);  
     }
 
     function gfun_facepass() {
@@ -190,30 +203,21 @@
         if (g_sname == '')
             return;
 
-        self.location.href = "/terminal/tml"+ g_sname +"?sip=" + g_sip;
+        $(window.parent.document).find("iframe")[0].src = "/terminal/tml" + g_sname + "?sip=" + g_sip;
     }
 
-    function gfun_height(bwidth, bheight) {
-        $('#content').height(bheight);
-        $('#gl_layout').layout().layout('resize');
-        if ($("#gl_layout").layout('options').width < 400) {
-            if (!$("#gl_layout").layout("panel", "east").panel('options').collapsed) {
-                $("#gl_layout").layout("collapse", "east");
-            }
-        }
-        else {
-            if ($("#gl_layout").layout("panel", "east").panel('options').collapsed) {
-                $("#gl_layout").layout("expand", "east");
-            }
-        }
+    window.onload = function () {
+        gfun_get_terminal();
     }
+    
+
 
 </script>
 <div id="content" style="height: 408px">
     <div id="gl_layout" class="easyui-layout" data-options="fit:true">
         <div id="g_devbtn" data-options="region:'east',split:true,title:'Settings',collapsed:true"
             style="width: 200px; padding-top: 10px">
-            <a href="#" class="easyui-linkbutton" style="width: 95%;height: 30px; margin: 2%" onclick="gfun_sendsocket()" > ListDevice </a>
+            <a href="#" class="easyui-linkbutton" style="width: 95%;height: 30px; margin: 2%" onclick="gfun_get_terminal()" > ListDevice </a>
             <a href="#" class="easyui-linkbutton" style="width: 95%;height: 30px; margin: 2%" onclick="gfun_cmd_getname()" > GetName </a>
             <a href="#" class="easyui-linkbutton" style="width: 95%;height: 30px; margin: 2%" onclick="gfun_cmd_testcmd()" > TestDevice </a>
             <a href="#" class="easyui-linkbutton" style="width: 95%;height: 30px; margin: 2%" onclick="gfun_facepass()" > FacePass </a>

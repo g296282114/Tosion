@@ -8,10 +8,12 @@ namespace MulApp.Controllers
 {
     public class TerminalMessageController : AsyncController
     {
+        [AsyncTimeout(10000)]
         public void RecAsync()
         {
             AsyncManager.OutstandingOperations.Increment();
             BLL.TerminalMessage.Notify += TerminalMessage_Notify;
+            BLL.TerminalMessage.StartTimer();
         }
 
         public string RecCompleted(string sdata)

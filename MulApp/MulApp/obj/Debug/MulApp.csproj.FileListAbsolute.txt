@@ -121,3 +121,4 @@ D:\Tosion\MulApp\MulApp\bin\zh-Hans\System.Web.WebPages.Razor.resources.dll
 D:\Tosion\MulApp\MulApp\obj\Debug\MulApp.csproj.CoreCompileInputs.cache
 D:\Tosion\MulApp\MulApp\obj\Debug\MulApp.dll
 D:\Tosion\MulApp\MulApp\obj\Debug\MulApp.pdb
+D:\Tosion\MulApp\MulApp\obj\Debug\MulApp.csprojResolveAssemblyReference.cache

@@ -15,8 +15,10 @@ namespace MulApp.Models
 
         public class TFacePassData
         {
-            public string fmsg { get; set; }
-            public string imgbase64 { get; set; }
+            public int state { get; set; }
+            public string msg { get; set; }
+            public string data { get; set; }
+            
         }
 
         public class TSocketData

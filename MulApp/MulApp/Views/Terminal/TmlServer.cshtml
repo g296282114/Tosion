@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "TmlTest";
+}
+@section head
+{
+    <script type="text/javascript" src="/Content/Scripts/glf_common.js"></script>
+}
+<script>
+
+    function SelServer(mode)
+    {
+        $(window.parent.document).find("iframe")[0].src = "/terminal/tmlserver" + mode + '?sip=@ViewData["sip"]';
+    }
+
+</script>
+<div id="content" style="height: 408px">
+    <div id="gl_layout" class="easyui-layout" data-options="fit:true">
+        <div data-options="region:'east',split:true,title:'Settings',collapsed:true" style="width: 200px;
+            padding-top: 10px">
+         <a href="#" class="easyui-linkbutton" style="width: 95%;
+                    height: 30px; margin: 2%" onclick="SelServer('video')">Video</a>
+            <a href="#" class="easyui-linkbutton" style="width: 95%;
+                    height: 30px; margin: 2%" onclick="SelServer('cmd')">Cmd</a>
+        </div>
+        <div data-options="region:'center'">
+            
+        </div>
+    </div>
+</div>

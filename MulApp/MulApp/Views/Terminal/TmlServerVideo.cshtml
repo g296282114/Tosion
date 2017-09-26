@@ -1,0 +1,55 @@
+﻿@{
+    ViewBag.Title = "TmlServerVideo";
+}
+@section head
+{
+    <script type="text/javascript" src="/Content/Scripts/glf_common.js"></script>
+}
+<script>
+
+    var g_sendsocket = {};
+
+
+            g_sendsocket["cmd"] = "";
+            g_sendsocket["fmodule"] = "/terminal/TmlServerVideo";
+            g_sendsocket["tip"] = "@ViewData["sip"]";
+            g_sendsocket["tmodule"] = "";
+            g_sendsocket["data"] = "";
+
+            function gfun_cmd_get_video()
+            {
+                g_sendsocket["cmd"] = "get_video";
+                $.post("/terminal/SendData", JSON.stringify(g_sendsocket), null);
+            }
+
+
+            function gfun_terminal_message(data) {
+                switch (data["cmd"]) {
+                    case "return_video":
+                        $("#videoimg").attr("src", "/terminal/return_videoimg?rnd=" + Math.random());
+                        break;
+
+
+
+                }
+
+            }
+
+            window.onload = function ()
+            {
+                gfun_cmd_get_video();
+            }
+
+
+
+</script>
+<div id="content" style="height: 408px">
+    <div id="gl_layout" class="easyui-layout" data-options="fit:true">
+        <div data-options="region:'east',split:true,title:'Settings',collapsed:true" style="width: 200px;
+            padding-top: 10px">
+        </div>
+        <div data-options="region:'center'">
+            <img style="width:320px; height:240px" id="videoimg" src="" alt="videoimg" onload="gfun_cmd_get_video()" />
+        </div>
+    </div>
+</div>

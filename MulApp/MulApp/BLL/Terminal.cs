@@ -88,12 +88,12 @@ namespace MulApp.BLL
                     return;
                 }
 
-                if (socketRec.cmd == "return_videoimg")
+                if (socketRec.cmd == "return_video")
                 {
 
                     Models.Terminal.TFacePassData fpd = JsonConvert.DeserializeObject<Models.Terminal.TFacePassData>(socketRec.data);
-                    gvar_return_videoimg = Convert.FromBase64String(fpd.imgbase64);  
-                    socketRec.data = "/terminal/return_videoimg";
+                    gvar_return_videoimg = Convert.FromBase64String(fpd.data);  
+                    socketRec.data = "/terminal/return_video";
 
                 }
 
