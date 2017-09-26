@@ -35,7 +35,21 @@ namespace MulApp.BLL
         {
             var st = new System.Diagnostics.StackTrace();
             System.Reflection.MethodBase mb = st.GetFrame(1).GetMethod();
-            string str = Now().ToString() + " " + mb.ReflectedType.FullName + "." + mb.Name + "----->" + System.Web.HttpUtility.HtmlEncode(sdata);
+
+            string str = "";
+
+            if (sdata.Length < 1024)
+            {
+                str = System.Web.HttpUtility.HtmlEncode(sdata);
+
+            }
+            else
+            {
+                str = sdata.Substring(0, 1000) + "..." + sdata.Substring(sdata.Length - 20);
+                str = System.Web.HttpUtility.HtmlEncode(str);
+            };
+
+            str = Now().ToString() + " " + mb.ReflectedType.FullName + "." + mb.Name + "----->" + str;
 
             if (GlfVar.lstLog.Count > 2000)
             {
