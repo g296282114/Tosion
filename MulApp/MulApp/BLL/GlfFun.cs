@@ -38,14 +38,14 @@ namespace MulApp.BLL
 
             string str = "";
 
-            if (sdata.Length < 1024)
+            if (sdata.Length < 512)
             {
                 str = System.Web.HttpUtility.HtmlEncode(sdata);
 
             }
             else
             {
-                str = sdata.Substring(0, 1000) + "..." + sdata.Substring(sdata.Length - 20);
+                str = sdata.Substring(0, 256) + "..." + sdata.Substring(sdata.Length - 256);
                 str = System.Web.HttpUtility.HtmlEncode(str);
             };
 
