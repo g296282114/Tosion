@@ -101,6 +101,24 @@ namespace MulApp.BLL
             }
         }
 
+        public static string SendGetStr(string url)
+        {
+            string result;
+
+            try
+            {
+                var webClient = new System.Net.WebClient { Encoding = System.Text.Encoding.UTF8 };
+
+                result = webClient.DownloadString(url);
+            }
+            catch (Exception ex)
+            {
+                result = ex.Message;
+            }
+
+            return result;
+        }
+
         public static string SendPostStr(string url, string postString)
         {
             if (string.IsNullOrEmpty(url))

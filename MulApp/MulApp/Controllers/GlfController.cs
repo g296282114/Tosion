@@ -13,10 +13,7 @@ namespace MulApp.Controllers
 
         public string Test()
         {
-            Models.WeChat.WeChatXml xml = new Models.WeChat.WeChatXml("<xml></xml>");
-            xml["a"] = "sdfsdf";
-
-            return xml.XmlStr();
+            return BLL.GlfFun.SendGetStr("http://www.google.com");
   
         }
 
